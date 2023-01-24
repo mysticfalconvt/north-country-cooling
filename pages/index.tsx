@@ -28,7 +28,7 @@ export default function Home() {
                 <h1 className="text-5xl font-bold">North Country Cooling</h1>
                 <p className="text-xl">
                   We are a family owned and operated business serving the
-                  greater Burlington area. We provide quality service at an
+                  greater Derby area. We provide quality service at an
                   affordable price. We are fully licensed and insured.
                 </p>
                 <p className="text-xl">
