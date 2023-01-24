@@ -36,10 +36,8 @@ export const themes = [
   "winter",
 ];
 export function Nav({ setTheme, theme }: NavProps) {
-  console.log(setTheme);
-  console.log(theme);
   return (
-    <div className="navbar bg-base-300" data-theme={theme}>
+    <div className="navbar bg-secondary mb-5" data-theme={theme}>
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">
           North Country Cooling
@@ -47,9 +45,6 @@ export function Nav({ setTheme, theme }: NavProps) {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>802-number-phone</a>
-          </li>
           <li tabIndex={0}>
             <a>
               Themes
@@ -63,7 +58,7 @@ export function Nav({ setTheme, theme }: NavProps) {
                 <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
               </svg>
             </a>
-            <ul className="p-2 bg-base-100">
+            <ul className="p-2 bg-base-100 z-10">
               {themes.map((theme) => (
                 <li key={theme}>
                   <a
@@ -75,6 +70,9 @@ export function Nav({ setTheme, theme }: NavProps) {
                 </li>
               ))}
             </ul>
+          </li>
+          <li>
+            <a href="tel:802-249-4858">802-249-4858</a>
           </li>
         </ul>
       </div>
