@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Nav } from "@/components/nav";
 import React from "react";
 import { getSheetsData } from "@/utils/api";
+import { Footer } from "@/components/footer";
 
 type HomeProps = {
   startingQuote: string;
@@ -20,7 +21,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  console.log(sheetsData.facebookPost);
+
   return (
     <>
       <Head>
@@ -29,7 +30,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div data-theme={theme} className="h-screen">
+      <div data-theme={theme} className="h-fit">
         <Nav theme={theme} setTheme={setTheme} />
 
         <main>
@@ -96,6 +97,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
               </div>
             </div>
           </div>
+          <Footer />
         </main>
       </div>
     </>
