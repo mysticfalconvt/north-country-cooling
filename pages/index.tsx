@@ -1,9 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
 import { Nav } from "@/components/nav";
 import React from "react";
-import { FacebookEmbed, InstagramEmbed } from "react-social-media-embed";
 import { getSheetsData } from "@/utils/api";
 
 type HomeProps = {
@@ -39,9 +37,13 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="col-span-1 prose md:prose-lg lg:prose-xl">
                 <h1 className="text-5xl font-bold">{sheetsData.title}</h1>
+                <h2 className="text-3xl font-bold">{sheetsData.subTitle}</h2>
                 <p className="text-xl">{sheetsData.mainContent1}</p>
                 <p className="text-xl">{sheetsData.mainContent2}</p>
-                <p className="text-xl">Call us today for a free estimate!</p>
+                <p className="text-xl">
+                  <a href="tel:315-369-2000">Call us</a> today for a free
+                  estimate!
+                </p>
               </div>
               <div className="col-span-1">
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">
