@@ -20,7 +20,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
+  console.log(sheetsData.facebookPost);
   return (
     <>
       <Head>
@@ -40,10 +40,14 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                 <h2 className="text-3xl font-bold">{sheetsData.subTitle}</h2>
                 <p className="text-xl">{sheetsData.mainContent1}</p>
                 <p className="text-xl">{sheetsData.mainContent2}</p>
-                <p className="text-xl">
-                  <a href="tel:315-369-2000">Call us</a> today for a free
-                  estimate!
-                </p>
+                <div className="chat chat-start">
+                  <div className="chat-bubble">
+                    <a href="tel:802-249-4858">Call us</a>
+                    {"  "}today for a free estimate!
+                    <br />
+                    <a href="tel:802-249-4858">802-249-4858</a>
+                  </div>
+                </div>
               </div>
               <div className="col-span-1">
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">

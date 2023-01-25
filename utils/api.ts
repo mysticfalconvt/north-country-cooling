@@ -22,7 +22,7 @@ export async function getSheetsData() {
     const data: Record<string, string> = {};
     if (rows?.length) {
       // create object from rows with key as first column and value as second column for only first 3 rows
-      rows.slice(0, 4).forEach((row) => {
+      rows.slice(0, 5).forEach((row) => {
         data[row[0]] = row[1];
       });
 
