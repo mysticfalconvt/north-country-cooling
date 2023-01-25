@@ -37,7 +37,7 @@ export const themes = [
 ];
 export function Nav({ setTheme, theme }: NavProps) {
   return (
-    <div className="navbar bg-secondary mb-5" data-theme={theme}>
+    <div className="navbar bg-neutral mb-5" data-theme={theme}>
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl  invisible sm:visible">
           North Country Cooling
