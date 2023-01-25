@@ -41,10 +41,18 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                 <p className="text-xl">{sheetsData.mainContent1}</p>
                 <p className="text-xl">{sheetsData.mainContent2}</p>
                 <div className="chat chat-start">
-                  <div className="chat-bubble">
+                  <div className="chat-bubble chat-bubble-primary">
                     <a href="tel:802-249-4858">Call us</a>
                     {"  "}today for a free estimate!
-                    <br />
+                  </div>
+                </div>
+                <div className="chat chat-end">
+                  <div className="chat-bubble chat-bubble-secondary">
+                    Whats the Number?
+                  </div>
+                </div>
+                <div className="chat chat-start">
+                  <div className="chat-bubble chat-bubble-primary">
                     <a href="tel:802-249-4858">802-249-4858</a>
                   </div>
                 </div>
