@@ -47,7 +47,7 @@ export function Nav({ setTheme, theme }: NavProps) {
         <ul className="menu menu-horizontal px-1">
           <li tabIndex={0}>
             <a>
-              Themes
+              Theme: {theme}
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
