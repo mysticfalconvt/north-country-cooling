@@ -5,8 +5,23 @@ import { Inter } from "@next/font/google";
 import { Nav } from "@/components/nav";
 import React from "react";
 
+const funnyQuotes = [
+  "If a dog chews shoes whose shoes does he choose?",
+  "If a cow laughed would milk come out of her nose?",
+  "If a pig lost his tail would he still be a pig?",
+];
+
 export default function Home() {
   const [theme, setTheme] = React.useState("garden");
+  const [quote, setQuote] = React.useState(funnyQuotes[0]);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const newQuote =
+        funnyQuotes[Math.floor(Math.random() * funnyQuotes.length)];
+      setQuote(newQuote);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -26,8 +41,8 @@ export default function Home() {
                 <h1 className="text-5xl font-bold">North Country Cooling</h1>
                 <p className="text-xl">
                   We are a family owned and operated business serving the
-                  greater Derby area. We provide quality service at an
-                  affordable price. We are fully licensed and insured.
+                  greater North East Kingdom area. We provide quality service at
+                  an affordable price. We are fully licensed and insured.
                 </p>
                 <p className="text-xl">
                   We offer a wide range of services including: installation,
@@ -57,7 +72,7 @@ export default function Home() {
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title">John Rowe</h2>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                    <p>{quote}</p>
                     <div className="card-actions justify-end">
                       <button className="btn btn-primary">
                         <a href="tel:802-249-4858">Call Me</a>
