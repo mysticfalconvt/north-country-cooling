@@ -65,7 +65,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                 </div>
                 <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
                   <iframe
-                    src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FNorthCountryCooling%2Fposts%2Fpfbid02pih3ctf7wxZQhcuyMBu92BQP7epTGZDw3tMWUuBXUHWtDr9nT8oVjXKv1R41rQcdl&width=350&show_text=false&height=657&appId"
+                    src={sheetsData.facebookPost}
                     width="350"
                     height="657"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
