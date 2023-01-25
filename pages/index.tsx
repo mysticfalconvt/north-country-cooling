@@ -81,13 +81,13 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <iframe
+                {/* <iframe
                   className="card mx-auto mt-5"
                   src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FNorthCountryCooling%2Fposts%2Fpfbid02pih3ctf7wxZQhcuyMBu92BQP7epTGZDw3tMWUuBXUHWtDr9nT8oVjXKv1R41rQcdl&show_text=true&width=500"
                   width="500"
                   height="768"
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                ></iframe>
+                ></iframe> */}
                 <FacebookEmbed
                   url="https://www.facebook.com/NorthCountryCooling/posts/129850863259180"
                   width="500"
