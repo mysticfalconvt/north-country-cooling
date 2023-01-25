@@ -1,4 +1,3 @@
-import { Nav } from "@/components/nav";
 import { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 

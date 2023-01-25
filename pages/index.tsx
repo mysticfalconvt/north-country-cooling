@@ -2,12 +2,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import Link from "next/link";
 import { Nav } from "@/components/nav";
 import React from "react";
-import { FacebookEmbed } from "react-social-media-embed";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [theme, setTheme] = React.useState("garden");
@@ -26,7 +22,7 @@ export default function Home() {
         <main>
           <div className="container sm:mx-auto p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="col-span-1">
+              <div className="col-span-1 prose md:prose-lg lg:prose-xl">
                 <h1 className="text-5xl font-bold">North Country Cooling</h1>
                 <p className="text-xl">
                   We are a family owned and operated business serving the
