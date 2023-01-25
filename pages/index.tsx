@@ -40,20 +40,27 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                 <h2 className="text-3xl font-bold">{sheetsData.subTitle}</h2>
                 <p className="text-xl">{sheetsData.mainContent1}</p>
                 <p className="text-xl">{sheetsData.mainContent2}</p>
-                <div className="chat chat-start">
-                  <div className="chat-bubble chat-bubble-primary">
-                    <a href="tel:802-249-4858">Call us</a>
-                    {"  "}today for a free estimate!
-                  </div>
-                </div>
-                <div className="chat chat-end">
-                  <div className="chat-bubble chat-bubble-secondary">
-                    Whats the Number?
-                  </div>
-                </div>
-                <div className="chat chat-start">
-                  <div className="chat-bubble chat-bubble-primary">
-                    <a href="tel:802-249-4858">802-249-4858</a>
+                <div className="mockup-phone">
+                  <div className="camera"></div>
+                  <div className="display w-full">
+                    <div className="artboard artboard-demo phone-1">
+                      <div className="chat chat-start mt-10">
+                        <div className="chat-bubble chat-bubble-primary">
+                          <a href="tel:802-249-4858">Call us</a>
+                          {"  "}today for a free estimate!
+                        </div>
+                      </div>
+                      <div className="chat chat-end w-full">
+                        <div className="chat-bubble chat-bubble-secondary">
+                          Whats the Number?
+                        </div>
+                      </div>
+                      <div className="chat chat-start w-full">
+                        <div className="chat-bubble chat-bubble-primary">
+                          <a href="tel:802-249-4858">802-249-4858</a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -81,7 +88,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                   <iframe
                     src={sheetsData.facebookPost}
                     width="350"
-                    height="657"
+                    height="450"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     className="mx-auto"
                   ></iframe>
