@@ -39,14 +39,14 @@ export function Nav({ setTheme, theme }: NavProps) {
   return (
     <div className="navbar bg-neutral mb-5" data-theme={theme}>
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl  invisible sm:visible">
+        <a className="btn btn-ghost normal-case text-xl  invisible sm:visible bg-neutral text-neutral-content">
           North Country Cooling
         </a>
       </div>
-      <div className="flex-none">
+      <div className="flex-none ">
         <ul className="menu menu-horizontal px-1">
           <li tabIndex={0}>
-            <a>
+            <a className="text-neutral-content">
               Theme: {theme}
               <svg
                 className="fill-current"
@@ -63,7 +63,7 @@ export function Nav({ setTheme, theme }: NavProps) {
                 <li key={theme}>
                   <a
                     onClick={() => setTheme(theme)}
-                    className="btn btn-ghost normal-case text-xl"
+                    className="btn btn-ghost normal-case text-xl text-base-content"
                   >
                     {theme}
                   </a>
@@ -72,7 +72,9 @@ export function Nav({ setTheme, theme }: NavProps) {
             </ul>
           </li>
           <li>
-            <a href="tel:802-249-4858">802-249-4858</a>
+            <a href="tel:802-249-4858" className="text-neutral-content ml-5">
+              802-249-4858
+            </a>
           </li>
         </ul>
       </div>

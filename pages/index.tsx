@@ -4,6 +4,7 @@ import { Nav } from "@/components/nav";
 import React from "react";
 import { getSheetsData } from "@/utils/api";
 import { Footer } from "@/components/footer";
+import { Phone } from "@/components/phone";
 
 type HomeProps = {
   startingQuote: string;
@@ -30,40 +31,18 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div data-theme={theme} className="h-fit">
+      <div data-theme={theme} className="h-min:h-screen h-fit">
         <Nav theme={theme} setTheme={setTheme} />
 
         <main>
-          <div className="container sm:mx-auto p-5">
+          <div className="container sm:mx-auto p-5 text-base-content">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="col-span-1 prose md:prose-lg lg:prose-xl">
-                <h1 className="text-5xl font-bold">{sheetsData.title}</h1>
+                <h1 className="text-5xl font-bold ">{sheetsData.title}</h1>
                 <h2 className="text-3xl font-bold">{sheetsData.subTitle}</h2>
                 <p className="text-xl">{sheetsData.mainContent1}</p>
                 <p className="text-xl">{sheetsData.mainContent2}</p>
-                <div className="mockup-phone">
-                  <div className="camera"></div>
-                  <div className="display w-full">
-                    <div className="artboard artboard-demo phone-1">
-                      <div className="chat chat-start mt-10">
-                        <div className="chat-bubble chat-bubble-primary">
-                          <a href="tel:802-249-4858">Call us</a>
-                          {"  "}today for a free estimate!
-                        </div>
-                      </div>
-                      <div className="chat chat-end w-full">
-                        <div className="chat-bubble chat-bubble-secondary">
-                          Whats the Number?
-                        </div>
-                      </div>
-                      <div className="chat chat-start w-full">
-                        <div className="chat-bubble chat-bubble-primary">
-                          <a href="tel:802-249-4858">802-249-4858</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Phone />
               </div>
               <div className="col-span-1">
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">
@@ -80,7 +59,12 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                     <p>{quote}</p>
                     <div className="card-actions justify-end">
                       <button className="btn btn-primary">
-                        <a href="tel:802-249-4858">Call Me</a>
+                        <a
+                          href="tel:802-249-4858"
+                          className="text-primary-content"
+                        >
+                          Call Me
+                        </a>
                       </button>
                     </div>
                   </div>
