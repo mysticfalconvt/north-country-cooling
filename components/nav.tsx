@@ -1,3 +1,4 @@
+import { useTheme } from "next-themes";
 import React from "react";
 
 type NavProps = {
@@ -35,7 +36,17 @@ export const themes = [
   "coffee",
   "winter",
 ];
-export function Nav({ setTheme, theme }: NavProps) {
+export function Nav({}: NavProps) {
+  const [mounted, setMounted] = React.useState(false);
+  const { theme, setTheme } = useTheme();
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div className="navbar bg-neutral mb-5" data-theme={theme}>
       <div className="flex-1">

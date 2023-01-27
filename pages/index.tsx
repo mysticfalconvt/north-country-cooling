@@ -31,7 +31,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div data-theme={theme} className="h-min:h-screen h-fit">
+      <div className="h-min:h-screen h-fit">
         <Nav theme={theme} setTheme={setTheme} />
 
         <main>
