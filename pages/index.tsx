@@ -85,7 +85,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const sheetsData = await getSheetsData();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
@@ -95,5 +95,6 @@ export async function getServerSideProps() {
       startingQuote,
       sheetsData,
     },
+    revalidate: 30,
   };
 }
