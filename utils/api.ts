@@ -21,9 +21,11 @@ export async function getSheetsData() {
     const rows = response.data.values;
     const data: Record<string, string> = {};
     if (rows?.length) {
-      // create object from rows with key as first column and value as second column for only first 3 rows
-      rows.slice(0, 5).forEach((row) => {
-        data[row[0]] = row[1];
+      // create object from rows with key as first column and value as second column for the first 20 rows skipping empty values
+      rows.slice(0, 19).forEach((row) => {
+        if (row[0] && row[1]) {
+          data[row[0]] = row[1];
+        }
       });
 
       // remove the first 20 rows and then make an array of all remaining column 1 cells

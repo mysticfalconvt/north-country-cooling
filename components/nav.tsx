@@ -1,10 +1,8 @@
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import React from "react";
 
-type NavProps = {
-  setTheme: (theme: string) => void;
-  theme: string;
-};
+type NavProps = {};
 export const themes = [
   "light",
   "dark",
@@ -50,9 +48,12 @@ export function Nav({}: NavProps) {
   return (
     <div className="navbar bg-neutral mb-5" data-theme={theme}>
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl  invisible sm:visible bg-neutral text-neutral-content">
+        <Link
+          href="/"
+          className="btn btn-ghost normal-case text-xl  invisible sm:visible bg-neutral text-neutral-content"
+        >
           North Country Cooling
-        </a>
+        </Link>
       </div>
       <div className="flex-none ">
         <ul className="menu menu-horizontal px-1">
@@ -83,9 +84,12 @@ export function Nav({}: NavProps) {
             </ul>
           </li>
           <li>
-            <a href="tel:802-249-4858" className="text-neutral-content ml-5">
-              802-249-4858
-            </a>
+            <Link
+              href="/contact"
+              className="text-primary-content btn-primary active ml-5"
+            >
+              Contact Me!
+            </Link>
           </li>
         </ul>
       </div>

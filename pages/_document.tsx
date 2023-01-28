@@ -6,7 +6,6 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
-        <div id="fb-root"></div>
         <script
           async
           defer

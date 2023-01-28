@@ -6,8 +6,8 @@ import { getSheetsData } from "@/utils/api";
 import { Footer } from "@/components/footer";
 import { Phone } from "@/components/phone";
 
-type HomeProps = {
-  startingQuote: string;
+export type HomeProps = {
+  startingQuote?: string;
   sheetsData: Record<string, string>;
 };
 
@@ -31,13 +31,11 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div className="h-min:h-screen h-fit">
-        <Nav theme={theme} setTheme={setTheme} />
-
+      <div className="min-h-fit h-fit">
         <main>
           <div className="container sm:mx-auto p-5 text-base-content">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="col-span-1 prose md:prose-lg lg:prose-xl">
+              <div className="col-span-1 prose md:prose-lg lg:prose-xl flex flex-col">
                 <h1 className="text-5xl font-bold ">{sheetsData.title}</h1>
                 <h2 className="text-3xl font-bold">{sheetsData.subTitle}</h2>
                 <p className="text-xl">{sheetsData.mainContent1}</p>
@@ -60,7 +58,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                     <div className="card-actions justify-end">
                       <button className="btn btn-primary">
                         <a
-                          href="tel:802-249-4858"
+                          href={`tel:${sheetsData.callMe}`}
                           className="text-primary-content"
                         >
                           Call Me
@@ -81,7 +79,6 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
               </div>
             </div>
           </div>
-          <Footer />
         </main>
       </div>
     </>
