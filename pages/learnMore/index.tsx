@@ -78,11 +78,11 @@ export default function index({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div className="container mx-auto px-4 sm:px-8 bg-neutral-content text-neutral-content rounded-lg shadow-lg p-10 mb-10">
+      <div className="container bg-neutral-content mx-auto px-4 sm:px-8 bg-neutral-content text-neutral-content rounded-lg shadow-lg p-10 mb-10">
         <h1 className="text-4xl text-center text-neutral">
           Links to learn more!!
         </h1>
-        <div className="text-center prose prose-xl">
+        <div className="text-center prose prose-xl text-neutral-focus">
           <p>{sheetsData.learnMoreText}</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center items-stretch w-full">
