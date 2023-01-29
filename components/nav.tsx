@@ -46,16 +46,25 @@ export function Nav({}: NavProps) {
   }
 
   return (
-    <div className="navbar bg-neutral mb-5" data-theme={theme}>
-      <div className="flex-1">
+    <div
+      className="navbar bg-neutral flex-col sm:flex-row mb-5"
+      data-theme={theme}
+    >
+      <div className="navbar-start">
         <Link
           href="/"
-          className="btn btn-ghost normal-case text-xl  invisible sm:visible bg-neutral text-neutral-content"
+          className="btn btn-ghost normal-case text-xl invisible w-0 sm:visible sm:w-auto bg-neutral text-neutral-content"
         >
           North Country Cooling
         </Link>
+        <Link
+          href="/"
+          className="btn btn-ghost normal-case text-xl visible w-auto sm:invisible sm:w-0 bg-neutral text-neutral-content"
+        >
+          NCC
+        </Link>
       </div>
-      <div className="flex-none ">
+      <div className="navbar-end">
         <ul className="menu menu-horizontal px-1">
           <li tabIndex={0}>
             <a className="text-neutral-content">
