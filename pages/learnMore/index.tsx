@@ -103,14 +103,13 @@ export async function getStaticProps() {
   const startingQuote = quotes[Math.floor(Math.random() * quotes.length)];
   const linkPreviews = await Promise.all(
     links.map(async (link) => {
-      const preview = await getLinkPreview(link, {
+      const preview: any = await getLinkPreview(link, {
         followRedirects: "follow",
         headers: {
           "User-Agent": "googlebot",
         },
       });
       if (preview.url.includes("financing/homes/home-energy-loan")) {
-        console.log(preview);
         preview.title = "Efficiency Vermont Financing";
         preview.description = "Learn more about financing options";
         preview.images = [
