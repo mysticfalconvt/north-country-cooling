@@ -13,7 +13,6 @@ export type HomeProps = {
 };
 
 export default function Home({ startingQuote, sheetsData }: HomeProps) {
-  const [theme, setTheme] = React.useState("garden");
   const [quote, setQuote] = React.useState(startingQuote);
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -22,7 +21,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
       setQuote(newQuote);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [sheetsData]);
 
   return (
     <>

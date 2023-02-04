@@ -78,7 +78,7 @@ export default function index({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <div className="container bg-neutral-content mx-auto px-4 sm:px-8 bg-neutral-content text-neutral-content rounded-lg shadow-lg p-10 mb-10">
+      <div className="container mx-auto px-4 sm:px-8 bg-neutral-content text-neutral-content rounded-lg shadow-lg p-10 mb-10 flex flex-col place-content-center items-center">
         <h1 className="text-4xl text-center text-neutral">
           Links to learn more!!
         </h1>
@@ -109,6 +109,21 @@ export async function getStaticProps() {
           "User-Agent": "googlebot",
         },
       });
+      if (preview.url.includes("financing/homes/home-energy-loan")) {
+        console.log(preview);
+        preview.title = "Efficiency Vermont Financing";
+        preview.images = [
+          "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
+          "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
+        ];
+      }
+      if (preview.url.includes("ont.com/find-contractor-retailer")) {
+        preview.title = "Efficiency Vermont Contractor Listing";
+        preview.images = [
+          "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
+          "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
+        ];
+      }
       return preview;
     })
   );
