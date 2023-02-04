@@ -112,15 +112,20 @@ export async function getStaticProps() {
       if (preview.url.includes("financing/homes/home-energy-loan")) {
         console.log(preview);
         preview.title = "Efficiency Vermont Financing";
+        preview.description = "Learn more about financing options";
         preview.images = [
           "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
           "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
+          "https://www.efficiencyvermont.com/Media/Default/blog/HowTo/EVT-Blog-HowTo-HeatPump-Header.jpg",
         ];
       }
       if (preview.url.includes("ont.com/find-contractor-retailer")) {
         preview.title = "Efficiency Vermont Contractor Listing";
+        preview.description =
+          "Efficiency Excellence Network Member.\n Trained and evaluated by Efficiency Vermont to provide the highest level of professional energy efficiency services. ";
         preview.images = [
           "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
+          "https://www.efficiencyvermont.com/Media/Default/blog/HowTo/EVT-Blog-HowTo-HeatPump-Header.jpg",
           "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
         ];
       }
