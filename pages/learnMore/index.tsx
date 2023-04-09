@@ -73,7 +73,7 @@ export default function index({
         <title>{sheetsData.title}</title>
         <meta
           name="description"
-          content="North Country Cooling AC contractor in VT"
+          content="North Country Cooling more information about air conditioning and heat pump"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />

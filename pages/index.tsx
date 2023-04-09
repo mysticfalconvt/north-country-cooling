@@ -29,7 +29,13 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
         <title>{sheetsData.title}</title>
         <meta
           name="description"
-          content="North Country Cooling AC contractor in VT"
+          content="North Country Cooling AC air conditioning and heat pump contractor in northern VT"
+        />
+        <meta
+          name="keywords"
+          content="AC, air conditioning, cooling, heating, heat pump, heat pumps, Vermont, VT, contractor, service, repair, installation, maintenance, North Country Cooling,
+           Derby, Orleans, Barton, Newport, St. Johnsbury, Lyndonville, Lyndon, Irasburg, Sutton, Glover, Craftsbury, Greensboro, East Burke, Burke, West Burke, Lyndonville,
+           Johnson, Hardwick, Greensboro, East Hardwick, West Hardwick, East Charleston, West Charleston, East Calais, West Calais, East Montpelier, West Montpelier, East Barre,"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />

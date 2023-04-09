@@ -10,7 +10,7 @@ export default function index({ sheetsData }: { sheetsData: any }) {
         <title>{sheetsData.title}: Contact</title>
         <meta
           name="description"
-          content="North Country Cooling AC contractor in VT"
+          content="North Country Cooling AC air conditioning contractor contact info"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
