@@ -70,7 +70,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
               </div>
               <div className="col-span-1">
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">
-                  <figure className="w-full aspect-video">
+                  <figure className="w-full aspect-[3/2]">
                     <Image
                       src={imageList[image]}
                       alt="Photo of John Rowe - Owner of North Country Cooling"
@@ -78,7 +78,7 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                       height={200}
                     />
                   </figure>
-                  <div className="card-body">
+                  <div className="card-body aspect-[3/2]">
                     <h2 className="card-title">John Rowe</h2>
                     <p>{quote}</p>
                     <div className="card-actions justify-end">
