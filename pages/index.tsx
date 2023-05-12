@@ -1,9 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Nav } from "@/components/nav";
 import React from "react";
 import { getSheetsData } from "@/utils/api";
-import { Footer } from "@/components/footer";
 import { Phone } from "@/components/phone";
 import Link from "next/link";
 
@@ -12,14 +10,27 @@ export type HomeProps = {
   sheetsData: Record<string, string>;
 };
 
+const imageList = [
+  "/images/Photo-1.jpg",
+  "/images/Photo-3.jpg",
+  "/images/Photo-13.jpg",
+  "/images/Photo-20.jpg",
+  "/images/Photo-22.jpg",
+  "/images/Photo-23.jpg",
+];
+
 export default function Home({ startingQuote, sheetsData }: HomeProps) {
   const [quote, setQuote] = React.useState(startingQuote);
+  const [image, setImage] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
       const newQuote =
         sheetsData.quotes[Math.floor(Math.random() * sheetsData.quotes.length)];
       setQuote(newQuote);
+      const newImage = Math.floor(Math.random() * imageList.length);
+      setImage(newImage);
     }, 5000);
+
     return () => clearInterval(interval);
   }, [sheetsData]);
 
@@ -58,11 +69,11 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
               </div>
               <div className="col-span-1">
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">
-                  <figure>
+                  <figure className="w-full aspect-video">
                     <Image
-                      src="/images/Photo-3.jpg"
+                      src={imageList[image]}
                       alt="Photo of John Rowe - Owner of North Country Cooling"
-                      width={500}
+                      width={400}
                       height={200}
                     />
                   </figure>
