@@ -20,8 +20,9 @@ const imageList = [
 ];
 
 export default function Home({ startingQuote, sheetsData }: HomeProps) {
+  const randomImage = Math.floor(Math.random() * imageList.length);
   const [quote, setQuote] = React.useState(startingQuote);
-  const [image, setImage] = React.useState(0);
+  const [image, setImage] = React.useState(randomImage);
   React.useEffect(() => {
     const interval = setInterval(() => {
       const newQuote =
