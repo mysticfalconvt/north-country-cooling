@@ -60,8 +60,8 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                 <div className="card w-64 lg:w-96 bg-base-200 shadow-xl mx-auto z-0 mb-10">
                   <figure>
                     <Image
-                      src="/images/photo-3.jpg"
-                      alt="Shoes"
+                      src="/images/Photo-3.jpg"
+                      alt="Photo of John Rowe - Owner of North Country Cooling"
                       width={500}
                       height={200}
                     />
