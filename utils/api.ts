@@ -46,7 +46,15 @@ export async function getSheetsData() {
     console.log(err);
   }
 
-  return [];
+  return {
+    title: "North Country Cooling",
+    subTitle: "",
+    mainContent1: "",
+    mainContent2: "",
+    callMe: "",
+    facebookPost: "",
+    quotes: []
+  };
 }
 
 export async function getLinksData() {
