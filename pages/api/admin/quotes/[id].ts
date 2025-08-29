@@ -25,7 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
       const { text, isActive } = req.body;
 
-      await db
+      await getDb()
         .update(quotes)
         .set({ 
           text, 

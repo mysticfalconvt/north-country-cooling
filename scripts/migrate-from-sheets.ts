@@ -37,16 +37,16 @@ async function migrateFromGoogleSheets() {
     // Insert site settings
     console.log('📝 Inserting site settings...');
     await db.insert(siteSettings).values({
-      title: sheetsData.title || 'North Country Cooling',
-      subTitle: sheetsData.subTitle || '',
-      mainContent1: sheetsData.mainContent1 || '',
-      mainContent2: sheetsData.mainContent2 || '',
-      learnMoreText: sheetsData.learnMoreText || '',
-      contactMeContent: sheetsData.contactMeContent || '',
-      callMe: sheetsData.callMe || '',
-      emailMe: sheetsData.emailMe || '',
-      facebookMe: sheetsData.facebookMe || '',
-      facebookPost: sheetsData.facebookPost || '',
+      title: (sheetsData as any).title || 'North Country Cooling',
+      subTitle: (sheetsData as any).subTitle || '',
+      mainContent1: (sheetsData as any).mainContent1 || '',
+      mainContent2: (sheetsData as any).mainContent2 || '',
+      learnMoreText: (sheetsData as any).learnMoreText || '',
+      contactMeContent: (sheetsData as any).contactMeContent || '',
+      callMe: (sheetsData as any).callMe || '',
+      emailMe: (sheetsData as any).emailMe || '',
+      facebookMe: (sheetsData as any).facebookMe || '',
+      facebookPost: (sheetsData as any).facebookPost || '',
     });
 
     // Insert quotes
