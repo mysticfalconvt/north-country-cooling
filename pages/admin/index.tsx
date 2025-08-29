@@ -421,7 +421,8 @@ export default function AdminDashboard() {
       setMessage('✅ Facebook URL converted successfully!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      setMessage(`❌ Error converting URL: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      setMessage(`❌ Error converting URL: ${errorMessage}`);
       setTimeout(() => setMessage(''), 5000);
     }
   };

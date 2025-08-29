@@ -46,7 +46,8 @@ export function convertFacebookPostToEmbed(postUrl: string, options?: {
 
     return embedUrl;
   } catch (error) {
-    throw new Error(`Failed to convert Facebook URL: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to convert Facebook URL: ${errorMessage}`);
   }
 }
 
