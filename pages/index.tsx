@@ -8,6 +8,7 @@ import Link from "next/link";
 export type HomeProps = {
   startingQuote?: string;
   sheetsData: Record<string, string>;
+  facebookPosts?: any[];
 };
 
 const imageList = [
@@ -19,10 +20,11 @@ const imageList = [
   "/images/Photo-23.jpg",
 ];
 
-export default function Home({ startingQuote, sheetsData }: HomeProps) {
+export default function Home({ startingQuote, sheetsData, facebookPosts = [] }: HomeProps) {
   const randomImage = Math.floor(Math.random() * imageList.length);
   const [quote, setQuote] = React.useState(startingQuote);
   const [image, setImage] = React.useState(randomImage);
+  const [currentFacebookPost, setCurrentFacebookPost] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
       const newQuote =
@@ -30,10 +32,15 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
       setQuote(newQuote);
       const newImage = Math.floor(Math.random() * imageList.length);
       setImage(newImage);
+      
+      // Rotate Facebook posts if there are multiple
+      if (facebookPosts.length > 1) {
+        setCurrentFacebookPost((prev) => (prev + 1) % facebookPosts.length);
+      }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [sheetsData]);
+  }, [sheetsData, facebookPosts]);
 
   return (
     <>
@@ -93,15 +100,25 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                     </div>
                   </div>
                 </div>
-                <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
-                  <iframe
-                    src={sheetsData.facebookPost}
-                    width="350"
-                    height="450"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    className="mx-auto"
-                  ></iframe>
-                </div>
+                {facebookPosts.length > 0 && (
+                  <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
+                    <iframe
+                      src={facebookPosts[currentFacebookPost]?.embedUrl || sheetsData.facebookPost}
+                      width="350"
+                      height="450"
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      className="mx-auto"
+                    ></iframe>
+                    {facebookPosts.length > 1 && (
+                      <div className="text-center text-xs opacity-50 mt-2">
+                        Post {currentFacebookPost + 1} of {facebookPosts.length}
+                        {facebookPosts[currentFacebookPost]?.title && (
+                          <div className="font-semibold">{facebookPosts[currentFacebookPost].title}</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -115,11 +132,26 @@ export async function getStaticProps() {
   const sheetsData = await getSheetsData();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
-  const startingQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  const startingQuote = quotes && quotes.length > 0 
+    ? quotes[Math.floor(Math.random() * quotes.length)]
+    : "Quality HVAC service you can trust."; // Default quote
+
+  // Fetch Facebook posts
+  let facebookPosts = [];
+  try {
+    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/facebook-posts`);
+    if (response.ok) {
+      facebookPosts = await response.json();
+    }
+  } catch (error) {
+    console.error('Error fetching Facebook posts:', error);
+  }
+
   return {
     props: {
       startingQuote,
       sheetsData,
+      facebookPosts,
     },
     revalidate: 30,
   };
