@@ -140,7 +140,7 @@ export async function getStaticProps() {
   const quotes = sheetsData.quotes as string[];
   const startingQuote =
     quotes && quotes.length > 0
-      ? quotes[Math.floor(Math.random() * quotes.length)]
+      ? quotes[0] // Use first quote for consistent server-side rendering
       : 'Quality HVAC service you can trust.'; // Default quote
 
   // Fetch contact links

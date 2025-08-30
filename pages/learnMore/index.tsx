@@ -101,7 +101,7 @@ export async function getStaticProps() {
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
   const startingQuote = quotes && quotes.length > 0 
-    ? quotes[Math.floor(Math.random() * quotes.length)]
+    ? quotes[0] // Use first quote for consistent server-side rendering
     : "Quality HVAC service you can trust."; // Default quote
   const linkPreviews = await Promise.all(
     links.map(async (linkData) => {

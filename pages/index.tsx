@@ -21,15 +21,21 @@ const imageList = [
 ];
 
 export default function Home({ startingQuote, sheetsData, facebookPosts = [] }: HomeProps) {
-  const randomImage = Math.floor(Math.random() * imageList.length);
   const [quote, setQuote] = React.useState(startingQuote);
-  const [image, setImage] = React.useState(randomImage);
+  const [image, setImage] = React.useState(0); // Start with first image, not random
   const [currentFacebookPost, setCurrentFacebookPost] = React.useState(0);
   React.useEffect(() => {
+    // Set initial random values after component mounts (client-side only)
+    const initialImage = Math.floor(Math.random() * imageList.length);
+    setImage(initialImage);
+    
     const interval = setInterval(() => {
-      const newQuote =
-        sheetsData.quotes[Math.floor(Math.random() * sheetsData.quotes.length)];
-      setQuote(newQuote);
+      // Safely handle quotes
+      if (sheetsData.quotes && Array.isArray(sheetsData.quotes) && sheetsData.quotes.length > 0) {
+        const newQuote = sheetsData.quotes[Math.floor(Math.random() * sheetsData.quotes.length)];
+        setQuote(newQuote);
+      }
+      
       const newImage = Math.floor(Math.random() * imageList.length);
       setImage(newImage);
       
@@ -133,7 +139,7 @@ export async function getStaticProps() {
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
   const startingQuote = quotes && quotes.length > 0 
-    ? quotes[Math.floor(Math.random() * quotes.length)]
+    ? quotes[0] // Always use the first quote for consistent server-side rendering
     : "Quality HVAC service you can trust."; // Default quote
 
   // Fetch Facebook posts
