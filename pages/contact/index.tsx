@@ -12,7 +12,7 @@ export default function index({
   return (
     <>
       <Head>
-        <title>{sheetsData.title}: Contact</title>
+        <title>{Array.isArray(sheetsData.title) ? sheetsData.title.join(' ') : sheetsData.title || 'North Country Cooling'}: Contact</title>
         <meta
           name="description"
           content="North Country Cooling AC air conditioning contractor contact info"
@@ -40,10 +40,13 @@ export default function index({
                     <h2 className="card-title">{contact.linkName}</h2>
                   </div>
                   <p>{contact.text}</p>
-                  <p className="font-mono text-sm">
+                  <p className="font-mono text-sm break-all">
                     {contact.linkType === 'call' && contact.linkValue}
                     {contact.linkType === 'email' && (
-                      <a href={`mailto:${contact.linkValue}`}>
+                      <a 
+                        href={`mailto:${contact.linkValue}`}
+                        className="break-all"
+                      >
                         {contact.linkValue}
                       </a>
                     )}
@@ -52,6 +55,7 @@ export default function index({
                         href={contact.linkValue}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="break-all hover:underline"
                       >
                         {contact.linkValue}
                       </a>

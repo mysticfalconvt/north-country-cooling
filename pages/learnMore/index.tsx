@@ -70,7 +70,7 @@ export default function index({
   return (
     <>
       <Head>
-        <title>{sheetsData.title}</title>
+        <title>{Array.isArray(sheetsData.title) ? sheetsData.title.join(' ') : sheetsData.title || 'North Country Cooling'}</title>
         <meta
           name="description"
           content="North Country Cooling more information about air conditioning and heat pump"
