@@ -6,11 +6,27 @@ let db: ReturnType<typeof drizzle>;
 
 export function getDb() {
   if (!db) {
+    console.log('🔗 Initializing database connection...');
+    
     if (!process.env.DATABASE_URL) {
+      console.error('❌ DATABASE_URL environment variable is not set');
       throw new Error('DATABASE_URL is not set');
     }
-    const client = postgres(process.env.DATABASE_URL);
-    db = drizzle(client, { schema });
+    
+    // Log database URL (masked for security)
+    const maskedUrl = process.env.DATABASE_URL.replace(/:([^:@]+)@/, ':***@');
+    console.log('🔗 Connecting to database:', maskedUrl);
+    
+    try {
+      const client = postgres(process.env.DATABASE_URL, {
+        onnotice: () => {}, // Suppress notices in production
+      });
+      db = drizzle(client, { schema });
+      console.log('✅ Database connection initialized successfully');
+    } catch (error) {
+      console.error('❌ Failed to initialize database connection:', error);
+      throw error;
+    }
   }
   return db;
 }
