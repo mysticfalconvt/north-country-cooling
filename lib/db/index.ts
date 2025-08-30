@@ -18,7 +18,11 @@ export function getDb() {
     console.log('🔗 Connecting to database:', maskedUrl);
     
     try {
-      const client = postgres(process.env.DATABASE_URL, {
+      // Clean the DATABASE_URL by removing any surrounding quotes
+      const cleanUrl = process.env.DATABASE_URL.replace(/^['"]|['"]$/g, '');
+      console.log('🔧 Cleaned DATABASE_URL for connection');
+      
+      const client = postgres(cleanUrl, {
         onnotice: () => {}, // Suppress notices in production
       });
       db = drizzle(client, { schema });
