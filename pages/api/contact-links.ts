@@ -13,6 +13,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     console.log('🔗 Getting database connection...');
+    
+    // Log DATABASE_URL status (masked for security)
+    const dbUrl = process.env.DATABASE_URL;
+    if (dbUrl) {
+      const maskedUrl = dbUrl.replace(/:([^:@]+)@/, ':***@');
+      console.log('🔗 DATABASE_URL is set:', maskedUrl);
+    } else {
+      console.log('❌ DATABASE_URL is not set');
+    }
+    
+    // Check if DATABASE_URL is available (it won't be during build)
+    if (!process.env.DATABASE_URL) {
+      console.log('⚠️ DATABASE_URL not available during build, returning empty array');
+      return res.status(200).json([]);
+    }
+    
     const db = getDb();
     
     console.log('📊 Querying contact links...');
