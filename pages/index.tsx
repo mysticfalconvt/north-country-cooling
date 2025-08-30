@@ -158,6 +158,6 @@ export async function getStaticProps() {
       sheetsData,
       facebookPosts,
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }

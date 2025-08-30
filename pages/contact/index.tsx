@@ -152,6 +152,6 @@ export async function getStaticProps() {
       sheetsData,
       contactLinks,
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }

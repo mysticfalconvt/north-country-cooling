@@ -150,6 +150,6 @@ export async function getStaticProps() {
       sheetsData,
       linkPreviews: JSON.stringify(linkPreviews),
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }
