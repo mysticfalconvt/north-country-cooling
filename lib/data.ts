@@ -43,6 +43,7 @@ export async function getSiteDataDirect() {
     if (settings.length > 0) {
       const setting = settings[0];
       settingsData = {
+        id: setting.id,
         title: setting.title || 'North Country Cooling',
         subTitle: setting.subTitle || '',
         mainContent1: setting.mainContent1 || '',
@@ -53,6 +54,7 @@ export async function getSiteDataDirect() {
         emailMe: setting.emailMe || '',
         facebookMe: setting.facebookMe || '',
         facebookPost: setting.facebookPost || '',
+        updatedAt: setting.updatedAt?.toISOString(),
       };
     } else {
       // Default settings if none exist
@@ -71,10 +73,18 @@ export async function getSiteDataDirect() {
     }
 
     const quotesArray = activeQuotes.map(quote => quote.text);
+    const quotesWithDates = activeQuotes.map(quote => ({
+      id: quote.id,
+      text: quote.text,
+      isActive: quote.isActive,
+      createdAt: quote.createdAt?.toISOString(),
+      updatedAt: quote.updatedAt?.toISOString()
+    }));
 
     const responseData = {
       ...settingsData,
       quotes: quotesArray,
+      quotesWithDates: quotesWithDates, // Include full quote objects with serialized dates
     };
 
     console.log('✅ Site-data query successful, returning data:', JSON.stringify(responseData, null, 2));
@@ -131,7 +141,10 @@ export async function getFacebookPostsDirect() {
       id: post.id,
       embedUrl: post.embedUrl,
       title: post.title,
-      description: post.description
+      description: post.description,
+      sortOrder: post.sortOrder,
+      createdAt: post.createdAt?.toISOString() || null,
+      updatedAt: post.updatedAt?.toISOString() || null
     }));
 
     console.log('✅ Facebook posts query successful, returning:', postsArray.length, 'posts');
@@ -174,7 +187,14 @@ export async function getContactLinksDirect() {
     console.log('📞 Raw contact links from DB:', JSON.stringify(activeContactLinks, null, 2));
     console.log('✅ Contact links query successful, found:', activeContactLinks.length, 'links');
 
-    return activeContactLinks;
+    // Convert dates to strings for JSON serialization
+    const serializedContactLinks = activeContactLinks.map(link => ({
+      ...link,
+      createdAt: link.createdAt?.toISOString() || null,
+      updatedAt: link.updatedAt?.toISOString() || null
+    }));
+
+    return serializedContactLinks;
 
   } catch (error) {
     console.error('❌ Contact links direct query error:', error);
@@ -214,7 +234,9 @@ export async function getLinksDataDirect() {
       url: link.url,
       title: link.title,
       description: link.description,
-      images: link.images ? JSON.parse(link.images) : null
+      images: link.images ? JSON.parse(link.images) : null,
+      createdAt: link.createdAt?.toISOString() || null,
+      updatedAt: link.updatedAt?.toISOString() || null
     }));
 
     console.log('✅ Links-data query successful, returning:', linksArray.length, 'links');
