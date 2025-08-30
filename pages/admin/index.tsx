@@ -109,10 +109,31 @@ export default function AdminDashboard() {
   });
   const [editingContactLink, setEditingContactLink] =
     useState<ContactLink | null>(null);
+  
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    loadData();
+    checkAuthAndLoadData();
   }, []);
+
+  const checkAuthAndLoadData = async () => {
+    try {
+      // Check if user is authenticated by trying to access admin settings
+      const response = await fetch('/api/admin/settings');
+      if (response.status === 401) {
+        // Not authenticated, redirect to login
+        router.push('/admin/login');
+        return;
+      }
+      
+      // User is authenticated, proceed with loading data
+      setIsAuthenticated(true);
+      loadData();
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      router.push('/admin/login');
+    }
+  };
 
   const loadData = async () => {
     try {
@@ -517,6 +538,20 @@ export default function AdminDashboard() {
       setMessage('Error deleting contact link');
     }
   };
+
+  // Show loading spinner while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <>
+        <Head>
+          <title>Admin Dashboard - North Country Cooling</title>
+        </Head>
+        <div className="min-h-screen bg-base-200 flex items-center justify-center">
+          <div className="loading loading-spinner loading-lg"></div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
