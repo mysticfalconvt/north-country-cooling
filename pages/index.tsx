@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
-import { getSheetsData } from "@/utils/api";
+import { getSiteDataDirect, getFacebookPostsDirect } from "@/lib/data";
 import { Phone } from "@/components/phone";
 import Link from "next/link";
 
@@ -135,23 +135,15 @@ export default function Home({ startingQuote, sheetsData, facebookPosts = [] }: 
 }
 
 export async function getStaticProps() {
-  const sheetsData = await getSheetsData();
+  const sheetsData = await getSiteDataDirect();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
   const startingQuote = quotes && quotes.length > 0 
     ? quotes[0] // Always use the first quote for consistent server-side rendering
     : "Quality HVAC service you can trust."; // Default quote
 
-  // Fetch Facebook posts
-  let facebookPosts = [];
-  try {
-    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/facebook-posts`);
-    if (response.ok) {
-      facebookPosts = await response.json();
-    }
-  } catch (error) {
-    console.error('Error fetching Facebook posts:', error);
-  }
+  // Fetch Facebook posts directly from database
+  const facebookPosts = await getFacebookPostsDirect();
 
   return {
     props: {

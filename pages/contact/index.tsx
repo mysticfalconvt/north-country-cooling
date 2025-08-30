@@ -1,4 +1,4 @@
-import { getSheetsData } from '@/utils/api';
+import { getSiteDataDirect, getContactLinksDirect } from '@/lib/data';
 import Head from 'next/head';
 import { FaFacebookSquare } from 'react-icons/fa';
 
@@ -135,7 +135,7 @@ export default function index({
 }
 
 export async function getStaticProps() {
-  const sheetsData = await getSheetsData();
+  const sheetsData = await getSiteDataDirect();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
   const startingQuote =
@@ -143,18 +143,8 @@ export async function getStaticProps() {
       ? quotes[0] // Use first quote for consistent server-side rendering
       : 'Quality HVAC service you can trust.'; // Default quote
 
-  // Fetch contact links
-  let contactLinks = [];
-  try {
-    const response = await fetch(
-      `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/contact-links`,
-    );
-    if (response.ok) {
-      contactLinks = await response.json();
-    }
-  } catch (error) {
-    console.error('Error fetching contact links:', error);
-  }
+  // Fetch contact links directly from database
+  const contactLinks = await getContactLinksDirect();
 
   return {
     props: {

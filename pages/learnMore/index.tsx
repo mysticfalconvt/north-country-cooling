@@ -1,4 +1,4 @@
-import { getLinksData, getSheetsData } from "@/utils/api";
+import { getSiteDataDirect, getLinksDataDirect } from "@/lib/data";
 import { getLinkPreview } from "link-preview-js";
 import Head from "next/head";
 import Link from "next/link";
@@ -96,8 +96,8 @@ export default function index({
 }
 
 export async function getStaticProps() {
-  const sheetsData = await getSheetsData();
-  const links = await getLinksData();
+  const sheetsData = await getSiteDataDirect();
+  const links = await getLinksDataDirect();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
   const startingQuote = quotes && quotes.length > 0 
