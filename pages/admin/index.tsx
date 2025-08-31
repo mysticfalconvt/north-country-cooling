@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   convertFacebookPostToEmbed,
   isValidFacebookPostUrl,
@@ -108,30 +108,7 @@ export default function AdminDashboard() {
   
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    checkAuthAndLoadData();
-  }, []);
-
-  const checkAuthAndLoadData = async () => {
-    try {
-      // Check if user is authenticated by trying to access admin settings
-      const response = await fetch('/api/admin/settings');
-      if (response.status === 401) {
-        // Not authenticated, redirect to login
-        router.push('/admin/login');
-        return;
-      }
-      
-      // User is authenticated, proceed with loading data
-      setIsAuthenticated(true);
-      loadData();
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      router.push('/admin/login');
-    }
-  };
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       // Load settings
       const settingsRes = await fetch('/api/admin/settings');
@@ -183,7 +160,30 @@ export default function AdminDashboard() {
       // Might be unauthorized, redirect to login
       router.push('/admin/login');
     }
-  };
+  }, [router]);
+
+  const checkAuthAndLoadData = useCallback(async () => {
+    try {
+      // Check if user is authenticated by trying to access admin settings
+      const response = await fetch('/api/admin/settings');
+      if (response.status === 401) {
+        // Not authenticated, redirect to login
+        router.push('/admin/login');
+        return;
+      }
+      
+      // User is authenticated, proceed with loading data
+      setIsAuthenticated(true);
+      loadData();
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      router.push('/admin/login');
+    }
+  }, [router, loadData]);
+
+  useEffect(() => {
+    checkAuthAndLoadData();
+  }, [checkAuthAndLoadData]);
 
   const handleLogout = async () => {
     try {

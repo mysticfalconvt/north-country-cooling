@@ -45,8 +45,6 @@ async function migrateFromGoogleSheets() {
       contactMeContent: (sheetsData as any).contactMeContent || '',
       callMe: (sheetsData as any).callMe || '',
       emailMe: (sheetsData as any).emailMe || '',
-      facebookMe: (sheetsData as any).facebookMe || '',
-      facebookPost: (sheetsData as any).facebookPost || '',
     });
 
     // Insert quotes
