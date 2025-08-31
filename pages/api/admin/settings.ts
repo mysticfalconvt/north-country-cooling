@@ -21,8 +21,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           contactMeContent: '',
           callMe: '',
           emailMe: '',
-          facebookMe: '',
-          facebookPost: '',
         });
       }
       
@@ -42,8 +40,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         contactMeContent,
         callMe,
         emailMe,
-        facebookMe,
-        facebookPost,
       } = req.body;
 
       const db = getDb();
@@ -61,8 +57,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           contactMeContent,
           callMe,
           emailMe,
-          facebookMe,
-          facebookPost,
         });
       } else {
         // Update existing settings
@@ -77,8 +71,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             contactMeContent,
             callMe,
             emailMe,
-            facebookMe,
-            facebookPost,
             updatedAt: new Date(),
           })
           .where(eq(siteSettings.id, existingSettings[0].id));

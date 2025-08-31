@@ -16,8 +16,6 @@ export async function getSiteDataDirect() {
         contactMeContent: '',
         callMe: '',
         emailMe: '',
-        facebookMe: '',
-        facebookPost: '',
         quotes: [],
       };
     }
@@ -44,8 +42,6 @@ export async function getSiteDataDirect() {
         contactMeContent: setting.contactMeContent || '',
         callMe: setting.callMe || '',
         emailMe: setting.emailMe || '',
-        facebookMe: setting.facebookMe || '',
-        facebookPost: setting.facebookPost || '',
         updatedAt: setting.updatedAt?.toISOString(),
       };
     } else {
@@ -59,8 +55,6 @@ export async function getSiteDataDirect() {
         contactMeContent: '',
         callMe: '',
         emailMe: '',
-        facebookMe: '',
-        facebookPost: '',
       };
     }
 
@@ -94,8 +88,6 @@ export async function getSiteDataDirect() {
       contactMeContent: '',
       callMe: '',
       emailMe: '',
-      facebookMe: '',
-      facebookPost: '',
       quotes: [],
     };
   }

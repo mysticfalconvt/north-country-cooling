@@ -20,8 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         contactMeContent: '',
         callMe: '',
         emailMe: '',
-        facebookMe: '',
-        facebookPost: '',
         quotes: [],
       };
       return res.status(200).json(fallbackData);
@@ -48,8 +46,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         contactMeContent: setting.contactMeContent || '',
         callMe: setting.callMe || '',
         emailMe: setting.emailMe || '',
-        facebookMe: setting.facebookMe || '',
-        facebookPost: setting.facebookPost || '',
       };
     } else {
       // Default settings if none exist
@@ -62,8 +58,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         contactMeContent: '',
         callMe: '',
         emailMe: '',
-        facebookMe: '',
-        facebookPost: '',
       };
     }
 
@@ -91,8 +85,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       contactMeContent: '',
       callMe: '',
       emailMe: '',
-      facebookMe: '',
-      facebookPost: '',
       quotes: [],
     });
   }

@@ -120,10 +120,7 @@ export default function Home({
                 {facebookPosts.length > 0 && (
                   <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
                     <iframe
-                      src={
-                        facebookPosts[currentFacebookPost]?.embedUrl ||
-                        sheetsData.facebookPost
-                      }
+                      src={facebookPosts[currentFacebookPost]?.embedUrl}
                       width="350"
                       height="450"
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"

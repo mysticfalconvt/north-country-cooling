@@ -16,8 +16,6 @@ interface SiteSettings {
   contactMeContent: string;
   callMe: string;
   emailMe: string;
-  facebookMe: string;
-  facebookPost: string;
 }
 
 interface Quote {
@@ -69,8 +67,6 @@ export default function AdminDashboard() {
     contactMeContent: '',
     callMe: '',
     emailMe: '',
-    facebookMe: '',
-    facebookPost: '',
   });
 
   // Quotes state
@@ -673,36 +669,6 @@ export default function AdminDashboard() {
                     />
                   </div>
 
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Facebook URL</span>
-                    </label>
-                    <input
-                      type="url"
-                      className="input input-bordered"
-                      value={settings.facebookMe}
-                      onChange={(e) =>
-                        setSettings({ ...settings, facebookMe: e.target.value })
-                      }
-                    />
-                  </div>
-
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Facebook Post Embed</span>
-                    </label>
-                    <input
-                      type="url"
-                      className="input input-bordered"
-                      value={settings.facebookPost}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          facebookPost: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
                 </div>
 
                 <div className="form-control mt-4">

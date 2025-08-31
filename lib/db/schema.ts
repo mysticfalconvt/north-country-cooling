@@ -10,8 +10,6 @@ export const siteSettings = pgTable('site_settings', {
   contactMeContent: text('contact_me_content'),
   callMe: text('call_me'),
   emailMe: text('email_me'),
-  facebookMe: text('facebook_me'),
-  facebookPost: text('facebook_post'),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 

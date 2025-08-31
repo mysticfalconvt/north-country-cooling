@@ -116,7 +116,7 @@ export default function index({
               <div className="card w-96 bg-primary text-primary-content shadow-xl">
                 <div className="card-body">
                   <h2 className="card-title">Check out my Facebook Page</h2>
-                  <p>{sheetsData.facebookMe}</p>
+                  <p>Follow us on Facebook for updates and cooling tips!</p>
                   <div className="card-actions justify-end">
                     <button className="btn ">
                       <a

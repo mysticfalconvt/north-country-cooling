@@ -24,8 +24,6 @@ export async function getSiteData() {
       contactMeContent: '',
       callMe: '',
       emailMe: '',
-      facebookMe: '',
-      facebookPost: '',
       quotes: [],
     };
   }
