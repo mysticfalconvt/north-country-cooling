@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Image from "next/image";
-import React from "react";
-import { getSheetsData } from "@/utils/api";
-import { Phone } from "@/components/phone";
-import Link from "next/link";
+import { Phone } from '@/components/phone';
+import { getSheetsData } from '@/utils/api';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 export type HomeProps = {
   startingQuote?: string;
@@ -11,12 +11,12 @@ export type HomeProps = {
 };
 
 const imageList = [
-  "/images/Photo-1.jpg",
-  "/images/Photo-3.jpg",
-  "/images/Photo-13.jpg",
-  "/images/Photo-20.jpg",
-  "/images/Photo-22.jpg",
-  "/images/Photo-23.jpg",
+  '/images/Photo-1.jpg',
+  '/images/Photo-3.jpg',
+  '/images/Photo-13.jpg',
+  '/images/Photo-20.jpg',
+  '/images/Photo-22.jpg',
+  '/images/Photo-23.jpg',
 ];
 
 export default function Home({ startingQuote, sheetsData }: HomeProps) {
