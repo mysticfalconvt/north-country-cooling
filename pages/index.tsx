@@ -25,9 +25,12 @@ export default function Home({
   sheetsData,
   facebookPosts = [],
 }: HomeProps) {
-  const [quote, setQuote] = React.useState(startingQuote);
+  const [quote, setQuote] = React.useState(
+    startingQuote || 'Quality HVAC service you can trust.',
+  );
   const [image, setImage] = React.useState(0); // Start with first image, not random
   const [currentFacebookPost, setCurrentFacebookPost] = React.useState(0);
+
   React.useEffect(() => {
     // Set initial random values after component mounts (client-side only)
     const initialImage = Math.floor(Math.random() * imageList.length);
@@ -35,15 +38,9 @@ export default function Home({
 
     const interval = setInterval(() => {
       // Safely handle quotes
-      if (
-        sheetsData.quotes &&
-        Array.isArray(sheetsData.quotes) &&
-        sheetsData.quotes.length > 0
-      ) {
-        const newQuote =
-          sheetsData.quotes[
-            Math.floor(Math.random() * sheetsData.quotes.length)
-          ];
+      const quotes = sheetsData.quotes;
+      if (quotes && Array.isArray(quotes) && quotes.length > 0) {
+        const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
         setQuote(newQuote);
       }
 
@@ -57,7 +54,8 @@ export default function Home({
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [sheetsData, facebookPosts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - only run on mount
 
   return (
     <>
@@ -108,7 +106,11 @@ export default function Home({
                   </figure>
                   <div className="card-body aspect-[3/2]">
                     <h2 className="card-title">John Rowe</h2>
-                    <p>{quote}</p>
+                    <p>
+                      {quote ||
+                        startingQuote ||
+                        'Quality HVAC service you can trust.'}
+                    </p>
                     <div className="card-actions justify-end">
                       <button className="btn btn-primary">
                         <a
@@ -127,7 +129,7 @@ export default function Home({
                       src={facebookPosts[currentFacebookPost]?.embedUrl}
                       width="350"
                       height="450"
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                       className="mx-auto"
                     ></iframe>
                   </div>
