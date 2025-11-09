@@ -62,7 +62,11 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>{Array.isArray(sheetsData.title) ? sheetsData.title.join(' ') : sheetsData.title || 'North Country Cooling'}</title>
+        <title>
+          {Array.isArray(sheetsData.title)
+            ? sheetsData.title.join(' ')
+            : sheetsData.title || 'North Country Cooling'}
+        </title>
         <meta
           name="description"
           content="North Country Cooling AC air conditioning and heat pump contractor in northern VT"
