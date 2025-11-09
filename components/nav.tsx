@@ -65,42 +65,38 @@ export function Nav({}: NavProps) {
         </Link>
       </div>
       <div className="navbar-end">
-        <ul className="menu menu-horizontal px-1">
-          <li tabIndex={0}>
-            <a className="text-neutral-content">
-              Theme: {theme}
-              <svg
-                className="fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
-            </a>
-            <ul className="p-2 bg-base-200 z-10">
-              {themes.map((theme) => (
-                <li key={theme}>
-                  <a
-                    onClick={() => setTheme(theme)}
-                    className="btn btn-ghost normal-case text-xl text-base-content"
-                  >
-                    {theme}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="text-primary-content btn-primary active ml-5"
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost text-neutral-content">
+            Theme: {theme}
+            <svg
+              className="fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
             >
-              Contact Me!
-            </Link>
-          </li>
-        </ul>
+              <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+            </svg>
+          </div>
+          <ul tabIndex={0} className="dropdown-content menu bg-base-200 rounded-box z-[1] w-52 p-2 shadow">
+            {themes.map((themeOption) => (
+              <li key={themeOption}>
+                <a
+                  onClick={() => setTheme(themeOption)}
+                  className={themeOption === theme ? "active" : ""}
+                >
+                  {themeOption}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Link
+          href="/contact"
+          className="btn btn-primary ml-5"
+        >
+          Contact Me!
+        </Link>
       </div>
     </div>
   );

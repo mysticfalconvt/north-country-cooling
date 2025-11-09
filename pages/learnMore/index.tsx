@@ -1,7 +1,8 @@
-import { getLinksData, getSheetsData } from "@/utils/api";
+import { getSiteDataDirect, getLinksDataDirect } from "@/lib/data";
 import { getLinkPreview } from "link-preview-js";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
@@ -31,9 +32,12 @@ const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
     <div className="card w-96 bg-primary text-primary-content shadow-xl">
       {linkPreview.images?.length ? (
         <figure>
-          <img
+          <Image
             src={linkPreview.images[currentImage]}
             alt={`thumbnail image for ${linkPreview.title}`}
+            width={384}
+            height={200}
+            className="object-cover"
           />
         </figure>
       ) : null}
@@ -43,10 +47,12 @@ const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
         <div className="tooltip tooltip-secondary" data-tip={linkPreview.url}>
           <Link className="btn btn-accent flex" href={linkPreview.url}>
             {linkPreview.favicons?.length && (
-              <img
+              <Image
                 src={linkPreview.favicons[0]}
                 alt="favicon"
-                className="w-8 h-8 mr-2"
+                width={32}
+                height={32}
+                className="mr-2"
               />
             )}
             Visit Site
@@ -70,7 +76,7 @@ export default function index({
   return (
     <>
       <Head>
-        <title>{sheetsData.title}</title>
+        <title>{Array.isArray(sheetsData.title) ? sheetsData.title.join(' ') : sheetsData.title || 'North Country Cooling'}</title>
         <meta
           name="description"
           content="North Country Cooling more information about air conditioning and heat pump"
@@ -96,39 +102,51 @@ export default function index({
 }
 
 export async function getStaticProps() {
-  const sheetsData = await getSheetsData();
-  const links = await getLinksData();
+  const sheetsData = await getSiteDataDirect();
+  const links = await getLinksDataDirect();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
-  const startingQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  const startingQuote = quotes && quotes.length > 0 
+    ? quotes[0] // Use first quote for consistent server-side rendering
+    : "Quality HVAC service you can trust."; // Default quote
   const linkPreviews = await Promise.all(
-    links.map(async (link) => {
-      const preview: any = await getLinkPreview(link, {
-        followRedirects: "follow",
-        headers: {
-          "User-Agent": "googlebot",
-        },
-      });
-      if (preview.url.includes("financing/homes/home-energy-loan")) {
-        preview.title = "Efficiency Vermont Financing";
-        preview.description = "Learn more about financing options";
-        preview.images = [
-          "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
-          "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
-          "https://www.efficiencyvermont.com/Media/Default/blog/HowTo/EVT-Blog-HowTo-HeatPump-Header.jpg",
-        ];
+    links.map(async (linkData) => {
+      // Handle both string (old format) and object (new format) link data
+      const link: { url: string; title: string | null; description: string | null; images: string[] | null } = typeof linkData === 'string' 
+        ? { url: linkData, title: null, description: null, images: null } 
+        : linkData;
+      
+      try {
+        const preview: any = await getLinkPreview(link.url, {
+          followRedirects: "follow",
+          headers: {
+            "User-Agent": "googlebot",
+          },
+        });
+
+        // Use custom data from database if provided
+        if (link.title) {
+          preview.title = link.title;
+        }
+        if (link.description) {
+          preview.description = link.description;
+        }
+        if (link.images && Array.isArray(link.images) && link.images.length > 0) {
+          preview.images = link.images;
+        }
+        
+        return preview;
+      } catch (error) {
+        console.error(`Error getting preview for ${link.url}:`, error);
+        // Return a fallback preview if link preview fails
+        return {
+          url: link.url,
+          title: link.title || link.url,
+          description: link.description || 'Click to visit this resource',
+          images: link.images || [],
+          favicons: []
+        };
       }
-      if (preview.url.includes("ont.com/find-contractor-retailer")) {
-        preview.title = "Efficiency Vermont Contractor Listing";
-        preview.description =
-          "Efficiency Excellence Network Member.\n Trained and evaluated by Efficiency Vermont to provide the highest level of professional energy efficiency services. ";
-        preview.images = [
-          "https://www.efficiencyvermont.com/Media/Default/images/home-page/channel-marketplace.jpg",
-          "https://www.efficiencyvermont.com/Media/Default/blog/HowTo/EVT-Blog-HowTo-HeatPump-Header.jpg",
-          "https://www.efficiencyvermont.com/Media/Default/images/home-page/home-contractor.jpg?width=480&quality=90",
-        ];
-      }
-      return preview;
     })
   );
 
@@ -138,6 +156,6 @@ export async function getStaticProps() {
       sheetsData,
       linkPreviews: JSON.stringify(linkPreviews),
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }

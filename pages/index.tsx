@@ -1,5 +1,5 @@
 import { Phone } from '@/components/phone';
-import { getSheetsData } from '@/utils/api';
+import { getFacebookPostsDirect, getSiteDataDirect } from '@/lib/data';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import React from 'react';
 export type HomeProps = {
   startingQuote?: string;
   sheetsData: Record<string, string>;
+  facebookPosts?: any[];
 };
 
 const imageList = [
@@ -19,26 +20,53 @@ const imageList = [
   '/images/Photo-23.jpg',
 ];
 
-export default function Home({ startingQuote, sheetsData }: HomeProps) {
-  const randomImage = Math.floor(Math.random() * imageList.length);
+export default function Home({
+  startingQuote,
+  sheetsData,
+  facebookPosts = [],
+}: HomeProps) {
   const [quote, setQuote] = React.useState(startingQuote);
-  const [image, setImage] = React.useState(randomImage);
+  const [image, setImage] = React.useState(0); // Start with first image, not random
+  const [currentFacebookPost, setCurrentFacebookPost] = React.useState(0);
   React.useEffect(() => {
+    // Set initial random values after component mounts (client-side only)
+    const initialImage = Math.floor(Math.random() * imageList.length);
+    setImage(initialImage);
+
     const interval = setInterval(() => {
-      const newQuote =
-        sheetsData.quotes[Math.floor(Math.random() * sheetsData.quotes.length)];
-      setQuote(newQuote);
+      // Safely handle quotes
+      if (
+        sheetsData.quotes &&
+        Array.isArray(sheetsData.quotes) &&
+        sheetsData.quotes.length > 0
+      ) {
+        const newQuote =
+          sheetsData.quotes[
+            Math.floor(Math.random() * sheetsData.quotes.length)
+          ];
+        setQuote(newQuote);
+      }
+
       const newImage = Math.floor(Math.random() * imageList.length);
       setImage(newImage);
+
+      // Rotate Facebook posts if there are multiple
+      if (facebookPosts.length > 1) {
+        setCurrentFacebookPost((prev) => (prev + 1) % facebookPosts.length);
+      }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [sheetsData]);
+  }, [sheetsData, facebookPosts]);
 
   return (
     <>
       <Head>
-        <title>{sheetsData.title}</title>
+        <title>
+          {Array.isArray(sheetsData.title)
+            ? sheetsData.title.join(' ')
+            : sheetsData.title || 'North Country Cooling'}
+        </title>
         <meta
           name="description"
           content="North Country Cooling AC air conditioning and heat pump contractor in northern VT"
@@ -93,15 +121,17 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
                     </div>
                   </div>
                 </div>
-                <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
-                  <iframe
-                    src={sheetsData.facebookPost}
-                    width="350"
-                    height="450"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    className="mx-auto"
-                  ></iframe>
-                </div>
+                {facebookPosts.length > 0 && (
+                  <div className="card mx-auto w-96 bg-base-200 p-4 shadow-xl">
+                    <iframe
+                      src={facebookPosts[currentFacebookPost]?.embedUrl}
+                      width="350"
+                      height="450"
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      className="mx-auto"
+                    ></iframe>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -112,15 +142,23 @@ export default function Home({ startingQuote, sheetsData }: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const sheetsData = await getSheetsData();
+  const sheetsData = await getSiteDataDirect();
   // @ts-ignore - this is a hack to get the quotes into the props
   const quotes = sheetsData.quotes as string[];
-  const startingQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  const startingQuote =
+    quotes && quotes.length > 0
+      ? quotes[0] // Always use the first quote for consistent server-side rendering
+      : 'Quality HVAC service you can trust.'; // Default quote
+
+  // Fetch Facebook posts directly from database
+  const facebookPosts = await getFacebookPostsDirect();
+
   return {
     props: {
       startingQuote,
       sheetsData,
+      facebookPosts,
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }
