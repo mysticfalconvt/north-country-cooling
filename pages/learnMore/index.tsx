@@ -2,7 +2,6 @@ import { getSiteDataDirect, getLinksDataDirect } from "@/lib/data";
 import { getLinkPreview } from "link-preview-js";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 
 const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
@@ -32,12 +31,12 @@ const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
     <div className="card w-96 bg-primary text-primary-content shadow-xl">
       {linkPreview.images?.length ? (
         <figure>
-          <Image
+          <img
             src={linkPreview.images[currentImage]}
             alt={`thumbnail image for ${linkPreview.title}`}
             width={384}
             height={200}
-            className="object-cover"
+            className="object-cover w-full h-[200px]"
           />
         </figure>
       ) : null}
@@ -47,7 +46,7 @@ const LinkCard = ({ linkPreview }: { linkPreview: any }) => {
         <div className="tooltip tooltip-secondary" data-tip={linkPreview.url}>
           <Link className="btn btn-accent flex" href={linkPreview.url}>
             {linkPreview.favicons?.length && (
-              <Image
+              <img
                 src={linkPreview.favicons[0]}
                 alt="favicon"
                 width={32}

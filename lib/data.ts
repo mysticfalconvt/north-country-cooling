@@ -1,6 +1,12 @@
-import { getDb } from './db';
-import { siteSettings, quotes, facebookPosts, contactLinks, links } from './db/schema';
 import { eq } from 'drizzle-orm';
+import { getDb } from './db';
+import {
+  contactLinks,
+  facebookPosts,
+  links,
+  quotes,
+  siteSettings,
+} from './db/schema';
 
 // Direct database functions for use in getStaticProps (build time)
 export async function getSiteDataDirect() {
@@ -21,9 +27,9 @@ export async function getSiteDataDirect() {
     }
 
     const db = getDb();
-    
+
     const settings = await db.select().from(siteSettings).limit(1);
-    
+
     const activeQuotes = await db
       .select()
       .from(quotes)
@@ -58,13 +64,13 @@ export async function getSiteDataDirect() {
       };
     }
 
-    const quotesArray = activeQuotes.map(quote => quote.text);
-    const quotesWithDates = activeQuotes.map(quote => ({
+    const quotesArray = activeQuotes.map((quote) => quote.text);
+    const quotesWithDates = activeQuotes.map((quote) => ({
       id: quote.id,
       text: quote.text,
       isActive: quote.isActive,
       createdAt: quote.createdAt?.toISOString(),
-      updatedAt: quote.updatedAt?.toISOString()
+      updatedAt: quote.updatedAt?.toISOString(),
     }));
 
     const responseData = {
@@ -74,10 +80,9 @@ export async function getSiteDataDirect() {
     };
 
     return responseData;
-
   } catch (error) {
     console.error('Site-data direct query error:', error);
-    
+
     // Return fallback data in case of database error
     return {
       title: 'North Country Cooling',
@@ -101,28 +106,27 @@ export async function getFacebookPostsDirect() {
     }
 
     const db = getDb();
-    
+
     const activePosts = await db
       .select()
       .from(facebookPosts)
       .where(eq(facebookPosts.isActive, 'true'))
       .orderBy(facebookPosts.sortOrder);
 
-    const postsArray = activePosts.map(post => ({
+    const postsArray = activePosts.map((post) => ({
       id: post.id,
       embedUrl: post.embedUrl,
       title: post.title,
       description: post.description,
       sortOrder: post.sortOrder,
       createdAt: post.createdAt?.toISOString() || null,
-      updatedAt: post.updatedAt?.toISOString() || null
+      updatedAt: post.updatedAt?.toISOString() || null,
     }));
 
     return postsArray;
-
   } catch (error) {
     console.error('Facebook posts direct query error:', error);
-    
+
     return [];
   }
 }
@@ -135,7 +139,7 @@ export async function getContactLinksDirect() {
     }
 
     const db = getDb();
-    
+
     const activeContactLinks = await db
       .select()
       .from(contactLinks)
@@ -143,17 +147,16 @@ export async function getContactLinksDirect() {
       .orderBy(contactLinks.sortOrder, contactLinks.createdAt);
 
     // Convert dates to strings for JSON serialization
-    const serializedContactLinks = activeContactLinks.map(link => ({
+    const serializedContactLinks = activeContactLinks.map((link) => ({
       ...link,
       createdAt: link.createdAt?.toISOString() || null,
-      updatedAt: link.updatedAt?.toISOString() || null
+      updatedAt: link.updatedAt?.toISOString() || null,
     }));
 
     return serializedContactLinks;
-
   } catch (error) {
     console.error('Contact links direct query error:', error);
-    
+
     return [];
   }
 }
@@ -166,27 +169,26 @@ export async function getLinksDataDirect() {
     }
 
     const db = getDb();
-    
+
     const activeLinks = await db
       .select()
       .from(links)
       .where(eq(links.isActive, 'true'))
       .orderBy(links.createdAt);
 
-    const linksArray = activeLinks.map(link => ({
+    const linksArray = activeLinks.map((link) => ({
       url: link.url,
       title: link.title,
       description: link.description,
       images: link.images ? JSON.parse(link.images) : null,
       createdAt: link.createdAt?.toISOString() || null,
-      updatedAt: link.updatedAt?.toISOString() || null
+      updatedAt: link.updatedAt?.toISOString() || null,
     }));
 
     return linksArray;
-
   } catch (error) {
     console.error('Links-data direct query error:', error);
-    
+
     return [];
   }
 }
