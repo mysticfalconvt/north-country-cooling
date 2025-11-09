@@ -4,13 +4,14 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
-          <script
-            defer
-            src="https://umami.rboskind.com/script.js"
-            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-          />
-        )}
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID &&
+          process.env.NODE_ENV !== 'development' && (
+            <script
+              defer
+              src="https://umami.rboskind.com/script.js"
+              data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            />
+          )}
       </Head>
       <body>
         <script
